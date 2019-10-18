@@ -1,3 +1,4 @@
+/*
 public class test {
     public static void main(String[] args){
         int SumOdd = 0;
@@ -189,4 +190,4 @@ public class test{
             return n;
         }return frog(n-1)+frog(n-2);
     }
-}
+}*/
