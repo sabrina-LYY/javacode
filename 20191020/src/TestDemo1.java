@@ -127,7 +127,7 @@ import java.util.Arrays;
     }
 }*/
 // 将数组中的奇数放到偶数前*****
-public class TestDemo1{
+/*public class TestDemo1{
     public static void main(String[] args){
         int[] array = {1,2,3,4,5};
         eveafterOdd(array);
@@ -151,7 +151,7 @@ public class TestDemo1{
             }
         }
     }
-}
+}*/
 //实现二分查找(递归)
 /*public class TestDemo1{
     public static void main(String[] args) {
@@ -235,6 +235,34 @@ public class TestDemo1{
 }
 */
 
+//可变参数编程
+/*
+public class TestDemo1{
+    public static void main(String[] args){
+        System.out.println(Sum(1,2,3,4,5));
+        System.out.println(Sum(1,2,3));
+    }
+    public static int Sum(int... array){
+        int ret = 0;
+        for(int x:array){
+            ret += x;
+        }return ret;
+    }
+}
+*/
+
+//匿名数组
+//public class TestDemo1{
+//    public static void main(String[] args){
+//        System.out.println(Sum(new int[]{1,2,3,4,5,6}));  //这里创建了一个匿名数组
+//    }
+//    public static int Sum(int... array){
+//        int ret = 0;
+//        for(int x:array){
+//            ret += x;
+//        }return ret;
+//    }
+//}
 
 
 
