@@ -1,4 +1,4 @@
-class ListNode1{
+class ListNode{
     public int data;
     public ListNode next;
     public ListNode(int data){
@@ -130,6 +130,8 @@ public class MySingleList {
         }
         this.head = null;
     }
+
+
     //打印单列表数据
     public void display(){
         if(this.head ==null){
