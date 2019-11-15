@@ -236,8 +236,87 @@ class SingleList {
     }
 
     //8. 链表的回文结构。
+    public boolean chkPalindrome() {
+      if(this.head == null){
+          return false;
+      }
+      if(this.head.next == null){
+          return true;
+      }
+      ListNode fast = this.head;
+      ListNode slow = this.head;
+      while(fast != null && fast.next !=null){
+          fast = fast.next.next;
+          slow = slow.next;
+      }
+      ListNode cur = slow.next;
+      while(cur != null){
+          ListNode curNext = cur.next;
+          cur.next = slow;
+          slow = cur;
+          cur = curNext;
+      }
+      while(slow != this.head){
+          if(slow.data != this.head.data){
+              return false;
+          }
+
+          if(this.head.next == slow){
+              return true;
+          }
+          slow = slow.next;
+          this.head = this.head.next;
+      }
+      return true;
+    }
 
 
+    //创造环
+    public void createLoop(){
+        ListNode cur = this.head;
+        while(cur !=null){
+            cur = cur.next;
+        }
+        cur.next = this.head.next.next;
+    }
+    //判断是否有环
+    public boolean hasCycle(){
+        ListNode fast = this.head;
+        ListNode slow = this.head;
+        while(fast!=null && fast.next!=null){
+            fast = fast.next.next;
+            slow = slow.next;
+            if(fast == slow){
+                break;
+            }
+        }
+        if(fast==null || fast.next == null){
+            return false;
+        }
+        return true;
+    }
+    //给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null
+    public ListNode detectCycle(){
+        ListNode fast = this.head;
+        ListNode slow = this.head;
+        while(fast !=null && fast.next !=null){
+            fast = fast.next.next;
+            slow = slow.next;
+            if(fast == slow){
+                break;
+            }
+        }
+        if(fast == null || fast.next == null){
+            return null;
+        }
+        slow =this.head;
+        while(slow != fast){
+            fast = fast.next;
+            slow = slow.next;
+        }
+        return slow;
+
+    }
 
 
 
