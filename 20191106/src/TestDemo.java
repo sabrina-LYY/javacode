@@ -17,6 +17,9 @@ public class TestDemo {
         if(headA==null){
             tmp.next = headB;
         }
+        if(headB==null){
+            tmp.next = headA;
+        }
         return newHead.next;
     }
 

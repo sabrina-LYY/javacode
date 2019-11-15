@@ -378,7 +378,7 @@ public class SingleList {
                 break;
             }
         }
-        if (fast != null && fast.next != null) {
+        if (fast == null || fast.next == null) {
             return false;
         }
         return true;
@@ -394,7 +394,7 @@ public class SingleList {
                     break;
                 }
             }
-            if(fast!=null && fast.next!=null){
+            if(fast==null || fast.next==null){
                 return null;
             }
             slow = this.head;
