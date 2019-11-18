@@ -111,24 +111,6 @@ class SingleList {
        return slow;
     }
 
-
-    //反转链表
-    public ListNode reverseList(){
-      ListNode newHead = null;
-      ListNode prev = null;
-      ListNode cur = this.head;
-      while(cur!=null){
-          ListNode curNext = cur.next;
-          if(cur.next == null){
-              newHead = cur;
-          }
-          cur.next = prev;
-          prev = cur;
-          cur = curNext;
-      }
-      return newHead;
-    }
-
     //删除第一次出现关键字为key的节点
 
     public ListNode searchPrev(int key){
@@ -316,6 +298,23 @@ class SingleList {
         }
         return slow;
 
+    }
+
+    //反转链表
+    public ListNode reverseList(){
+        ListNode newHead = null;
+        ListNode prev = null;
+        ListNode cur = this.head;
+        while(cur!=null){
+            ListNode curNext = cur.next;
+            while(curNext != null){
+                newHead = cur;
+            }
+            cur.next = prev;
+            prev = cur;
+            cur = curNext;
+        }
+        return newHead;
     }
 
 
