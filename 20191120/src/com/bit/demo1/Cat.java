@@ -1,7 +1,7 @@
 package com.bit.demo1;
 
 //public final class Cat extends Animal{//final修饰变量，修饰的类叫密封类，不能被继承
-public final class Cat extends Animal{
+public  class Cat extends Animal{
     //public String name;
     private String color;//子类独有
     public Cat(String name,String color){
