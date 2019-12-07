@@ -42,7 +42,8 @@ public class SingleList {
         return count;
     }
 
-    //要求只遍历一遍列表就能找到位置,fast走两步，slow走一步
+    //
+	//要求只遍历一遍列表就能找到位置,fast走两步，slow走一步
     public ListNode middleNode(int data) {
         ListNode fast = this.head;
         ListNode slow = this.head;
