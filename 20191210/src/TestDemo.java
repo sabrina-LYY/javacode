@@ -1,6 +1,7 @@
 import java.util.Stack;
 
 public class TestDemo {
+
     //给定一个只包含‘（’、‘）’、'['、‘]’、‘{‘、’}‘的字符串，判断是否有效，即是否能匹配
     public static boolean isValid(String s){
         Stack<Character> stack = new Stack<Character>();
