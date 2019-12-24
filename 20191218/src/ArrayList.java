@@ -1,3 +1,5 @@
+
+
 public class ArrayList<T> {
         public T[] elem;
         public int usedSized;
@@ -12,4 +14,7 @@ public class ArrayList<T> {
         public T get() {
             return this.elem[this.usedSized-1];
         }
+
 }
+
+
