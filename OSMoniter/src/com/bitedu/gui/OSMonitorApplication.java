@@ -17,6 +17,10 @@ public class OSMonitorApplication extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("os_monitor_tab.fxml"));
         //2.真正的加载
         Parent root = loader.load();
+
+        OSMonitorController controller=loader.getController();
+        controller.setPrimaryStage(primaryStage);
+
         //3.创建一个Scene对象
         Scene scene = new Scene(root,800,600);
         //4.给Stage设置标题
@@ -25,6 +29,8 @@ public class OSMonitorApplication extends Application {
         primaryStage.setScene(scene);
         //6.展示
         primaryStage.show();
+
+        primaryStage.setOnCloseRequest((e) -> controller.shuntdown());
     }
 
 
