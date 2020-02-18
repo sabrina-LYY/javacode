@@ -202,11 +202,11 @@
     <packageJsonPaths />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-165" />
-    <option name="y" value="517" />
-    <option name="width" value="1386" />
-    <option name="height" value="788" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="-501" />
+    <option name="y" value="-18" />
+    <option name="width" value="1308" />
+    <option name="height" value="776" />
   </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
@@ -420,14 +420,16 @@
       <workItem from="1581815029848" duration="631000" />
       <workItem from="1581908761065" duration="598000" />
       <workItem from="1581934024001" duration="595000" />
+      <workItem from="1581987221699" duration="1000000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37082000" />
+    <option name="totallyTimeSpent" value="38082000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-165" y="517" width="1386" height="788" extended-state="0" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -442,7 +444,7 @@
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.2775264" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.28290468" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
