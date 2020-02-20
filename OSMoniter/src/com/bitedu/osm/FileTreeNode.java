@@ -9,6 +9,7 @@ public class FileTreeNode {
     private long totalLength;//文件总长度
     private File file;//记录系统文件对象
 
+
     public File getFile() {
         return file;
     }
@@ -40,5 +41,6 @@ public class FileTreeNode {
     }
 
     public void setFile(File file) {
+        this.file = file;
     }
 }

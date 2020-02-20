@@ -2,7 +2,7 @@ package com.bitedu.osm;
 
 import java.lang.management.ManagementFactory;
 import com.sun.management.OperatingSystemMXBean;
-import org.omg.CORBA.DATA_CONVERSION;
+
 
 public class OSResource {
     private static OperatingSystemMXBean mxBean = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
@@ -43,6 +43,8 @@ public class OSResource {
             this.x = x;
         }
     }
+
+
     public  static XYPair[] getCPUPercetage() {
         double cpu = mxBean.getSystemCpuLoad();
         moveCPUData(cpu);
@@ -52,7 +54,8 @@ public class OSResource {
         return mxBean.getName();
     }
 
-    public static void moveCPUData(double cpuPercetage){
+
+    private static void moveCPUData(double cpuPercetage){
         int moveIdx = -1;
         if(firstIndex == 0){
             moveIdx = firstIndex+1;

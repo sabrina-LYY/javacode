@@ -27,7 +27,7 @@ public class OSMonitorController {
 
     @FXML private LineChart cpuChart;
     @FXML private TreeTableView<FileTreeNode> fileStat;
-    @FXML private Text osType;
+    @FXML private javafx.scene.text.Text osType;
 
     //定时器任务
     private TimerTask timerTask = null;
@@ -36,15 +36,12 @@ public class OSMonitorController {
     private Stage primaryStage = null;
 
     private final Image image = new Image(getClass().getClassLoader().getResourceAsStream("Folder.png"));
-    public void setPrimaryStage(Stage primaryStage){
-        this.primaryStage = primaryStage;
-    }
-
 
     public void handleCPUSelectionChanged(Event event) {
         Tab tab = (Tab) event.getTarget();
 
         if(tab.isSelected()){
+            //匿名内部类的写法
             timerTask = new TimerTask() {
                 @Override
                 public void run() {
@@ -53,7 +50,7 @@ public class OSMonitorController {
 
                     for(OSResource.XYPair xyPair: xyPairs){
                         XYChart.Data data = new XYChart.Data(xyPair.getX(),xyPair.getY());
-                        series.getData() .add(data);
+                        series.getData().add(data);
                     }
 
                     //将渲染逻辑切换到主线程执行
@@ -63,7 +60,8 @@ public class OSMonitorController {
                                 cpuChart.getData().remove(0);
                             }
                             cpuChart.getData().add(series);//把数据放进LineChart中
-                            osType.setTextContent((OSResource.getOSName()));
+                            osType.setText(OSResource.getOSName());
+
                         }
                     );
                 }
@@ -88,6 +86,8 @@ public class OSMonitorController {
         }
     }
     public void handleSelectFile(ActionEvent actionEvent) {
+        System.out.println("Button action");
+        fileStat.setRoot(null);
 
         DirectoryChooser directoryChooser = new DirectoryChooser();
         //表示选择目录 File可以表示目录，也可表示普通文件
@@ -133,6 +133,15 @@ public class OSMonitorController {
             //递归调用转换子目录
             fillTreeItem(node,item);
         }
+
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
     }
 }
 

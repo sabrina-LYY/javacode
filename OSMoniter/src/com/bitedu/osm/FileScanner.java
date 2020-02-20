@@ -27,5 +27,14 @@ public class FileScanner {
             node.setTotalLength(node.getTotalLength() + child.getTotalLength());//父子结点大小统计
             node.addChildNode(child);
         }
+
+        Runnable r = () -> {
+            double radix = 2.0;
+            int i = 0;
+            for (; ; ) {
+                double runtime = 100 + Math.sin((Math.PI * i++) / radix) * 100;
+                long startTime = System.currentTimeMillis();
+            }
+        };
     }
 }

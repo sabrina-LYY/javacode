@@ -27,10 +27,11 @@ public class OSMonitorApplication extends Application {
         primaryStage.setTitle("OS Monitor");
         //5.将Scene添加到Stage
         primaryStage.setScene(scene);
-        //6.展示
-        primaryStage.show();
+
 
         primaryStage.setOnCloseRequest((e) -> controller.shuntdown());
+        //6.展示
+        primaryStage.show();
     }
 
 
