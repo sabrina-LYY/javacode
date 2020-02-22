@@ -91,12 +91,45 @@ public class TestDemo {
     }
 
     //堆排
-    /*public static void AdjustDown(int[] array,int root;int len){
+    public static void AdjustDown(int[] array,int root,int len){
+        int parent = root;
+        int child = 2*parent+1;
+        while(child < len){
+            if(child+1 <len && array[child] <array[child+1]){
+                child++;
+            }
+
+            //child保存的是最大值得下标
+            if(array[child] >array[parent]){
+                int tmp = array[child];
+                array[child] = array[parent];
+                array[parent] = tmp;
+                parent = child;
+                child = 2*parent+1;
+            }else{
+                break;
+            }
+        }
+
 
     }
     public static void CreateHeap(int[]array){
-        int parent
-    }*/
+        for(int i=(array.length-1-1)/2;i>=0;i--){
+            AdjustDown(array,i,array.length);
+        }
+    }
+
+    public static void heapSort(int[] array){
+        CreateHeap(array);
+        int end = array.length-1;
+        while(end>0){
+            int tmp = array[end];
+            array[end] = array[0];
+            array[0] = tmp;
+            AdjustDown(array,0,end);
+            end--;
+        }
+    }
 
 
 
@@ -189,12 +222,12 @@ public class TestDemo {
 
 
     public static void main(String[] args) {
-        int[] arr = {7,99,1,8,6,9,18,5};
+        int[] array = {7,99,1,8,6,9,18,5};
         //BubbleSort(arr);
         //QuickSort(arr);
         //mergeSort(arr);
-        mergeSort2(arr);
-        System.out.println(Arrays.toString(arr));
+        mergeSort2(array);
+        System.out.println(Arrays.toString(array));
     }
 
 }
