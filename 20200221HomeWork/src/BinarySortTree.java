@@ -1,3 +1,7 @@
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class BinarySortTree {
     static class Node {
         private int data;
@@ -109,6 +113,24 @@ public class BinarySortTree {
             }
 
         }
+    }
+
+
+    //前k个高频单词
+    public List<String> topKFrequent(String[] words, int k) {
+        //1.遍历words数组，将单词和出现的次数一一对应
+        HashMap<String,Integer> map = new HashMap<>();
+        for(String s:words){
+            if(map.get(s) == null){
+                map.put(s,1);
+            }else{
+                map.put(s,map.get(s)+1);
+            }
+        }
+        PurityQueue<Map<                        >>
+
+
+        //用小堆
     }
 
 }
