@@ -378,7 +378,7 @@ public class SingleList {
                 break;
             }
         }
-        if (fast == null || fast.next == null) {
+        if (fast != null && fast.next != null) {
             return false;
         }
         return true;
@@ -387,6 +387,7 @@ public class SingleList {
         public ListNode detectCycle(){
             ListNode fast = this.head;
             ListNode slow = this.head;
+			//第一次相遇
             while(fast!=null && fast.next!=null){
                 fast = fast.next.next;
                 slow = slow.next;
@@ -394,14 +395,17 @@ public class SingleList {
                     break;
                 }
             }
-            if(fast==null || fast.next==null){
+            if(fast!=null && fast.next!=null){
                 return null;
             }
             slow = this.head;
+			
             while(slow!=fast){
                 fast = fast.next;
                 slow = slow.next;
             }
             return slow;
     }
+	
+	
 }
