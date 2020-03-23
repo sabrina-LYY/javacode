@@ -5,10 +5,10 @@ public class TestDemo {
     public class Substr {
         public boolean[] chkSubStr(String[] p, int n, String s) {
             boolean[] bol = new boolean[n];
-            for(int i=0;i<n;i++){
-                if(s.contains(p[i])){
+            for (int i = 0; i < n; i++) {
+                if (s.contains(p[i])) {
                     bol[i] = true;
-                }else{
+                } else {
                     bol[i] = false;
                 }
             }
@@ -17,9 +17,9 @@ public class TestDemo {
     }
 
 
-    static class Student implements Comparable<Student>{
-        private  String name;
-        private  int score;
+    static class Student implements Comparable<Student> {
+        private String name;
+        private int score;
 
         public Student(String name, int score) {
             this.name = name;
@@ -44,21 +44,24 @@ public class TestDemo {
 
         @Override
         public int compareTo(Student o) {
-            return o.score-this.score;
+            return o.score - this.score;
         }
     }
-    public static void main(String[] args) {
+
+    public static void main1(String[] args) {
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();
-        ArrayList<Student>students = new ArrayList<>();
-        for(int i = 0;i<n;i++){
-            Student student = new Student(in.next(),in.nextInt());
+        ArrayList<Student> students = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            Student student = new Student(in.next(), in.nextInt());
             students.add(student);
         }
         Collections.sort(students);
-        for(Student student:students){
-            System.out.println(student.name+" "+student.score);
+        for (Student student : students) {
+            System.out.println(student.name + " " + student.score);
         }
 
     }
+
+
 }
