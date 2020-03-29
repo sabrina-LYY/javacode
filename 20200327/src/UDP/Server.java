@@ -1,13 +1,18 @@
 package UDP;
 
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
+
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 
 
 //必须公开port，否则客户端找不到
@@ -19,7 +24,29 @@ import java.util.Map;
 public class Server {
     static  final int PORT = 9527;
     static final String charest = "UTF-8";
+    private static final DataSource dataSource;
 
+    static{
+        MysqlDataSource mysqlDataSource = new MysqlDataSource();
+
+        //通过ip+port确定互联网上的唯一一个进程（mysql）
+        mysqlDataSource.setServerName("127.0.0.1");
+        mysqlDataSource.setPort(3306);
+
+        //MYSQL登录需要用到的信息--应用层使用的
+        mysqlDataSource.setUser("root");
+        mysqlDataSource.setPassword("");
+        mysqlDataSource.setDatabaseName("java20_0329");
+        mysqlDataSource.setCharacterEncoding("utf8");
+
+        //设置MYSQL连接用的属性---不用SSL连接
+        mysqlDataSource.setUseSSL(false);
+        dataSource = mysqlDataSource;
+    }
+
+
+
+/*
     //Map<英文单词，中文含义>
     private static final Map<String,String> meaningMap = new HashMap<>();
     //Map<英文单词，实例语句>
@@ -36,7 +63,7 @@ public class Server {
         exampleCentencesMap.get("send").add("Have you sent your mother a postcard yet?");
         exampleCentencesMap.get("send").add("I'll send you a text message.");
     }
-
+*/
     public static void main(String[] args) throws IOException {
         //1.创建套接字
         //DatagramSocket是UDP协议专用的套接字
@@ -71,7 +98,7 @@ public class Server {
                 //1.5.1请求就是英文单词，
                 //          根据英文单词获取含义+实例语句，
                 //          要考虑用户的请求不是我们支持的单词
-                String response = "不存在这个单词";
+  /*              String response = "不存在这个单词";
                 String template = "含义:\r\n%s\r\n示例语句：%s\r\n";
                 String exampleTemplate ="%d.%s\r\n";
                 if(meaningMap.containsKey(request)){
@@ -82,6 +109,27 @@ public class Server {
                         exampleSb.append(String.format(exampleTemplate,i+1,sencetenceList.get(i)));
                     }
                     response = String.format(template,meaning,exampleSb.toString());
+                }
+
+*/
+
+                String response = "没有这个单词！";
+                try(Connection con = dataSource.getConnection()){
+                    String sql = "SELECT ch FROM vocabulary WHERE en = ?";
+                    try(PreparedStatement stmt = con.prepareStatement(sql)){
+                        stmt.setString(1,request);
+                        //尤其要防止SQL注入，用户发来的数据不要完全相信，可能会有恶意用户
+
+                        try(ResultSet rs = stmt.executeQuery()){
+                            if(rs.next()){
+                                response = rs.getString("cn");
+                            }
+                        }
+                    }
+                }catch(SQLException e){
+                    e.printStackTrace();//打印在server这边
+                    response = e.getMessage();//准备发送给客户端的响应
+
                 }
 
 
