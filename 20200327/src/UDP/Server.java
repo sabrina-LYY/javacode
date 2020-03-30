@@ -82,6 +82,7 @@ public class Server {
                 //1.1必须先创建DatagramPacket数据报文对象
                 DatagramPacket packetFromClient = new DatagramPacket(receiveBuffer
                 ,0,receiveBuffer.length);
+                System.out.println("DEBUG:准备好接收用的packet");
                 //1.2接受数据
                 serverSocket.receive(packetFromClient);//不是立即返回
                 //走到这里，数据一定接收到了
