@@ -156,5 +156,5 @@ public class Main {
                 System.out.printf("%.2f", gpa);
             }
         }
-    }
+
 }
