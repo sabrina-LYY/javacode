@@ -4,18 +4,13 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+
     <servlet>
-        <servlet-name>Hello</servlet-name>
-        <servlet-class>com.lyy.HelloServlet</servlet-class>
+        <servlet-name>Result</servlet-name>
+        <servlet-class>com.bit.ResultServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
-        <servlet-name>Hello</servlet-name>
-        <url-pattern>/say-hello</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>Hello</servlet-name>
-        <url-pattern>/say-world</url-pattern>
+        <servlet-name>Result</servlet-name>
+        <url-pattern>/result</url-pattern>
     </servlet-mapping>
 </web-app>
