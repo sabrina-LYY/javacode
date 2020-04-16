@@ -102,13 +102,51 @@ public class elgamal {
      * @param p
      * @return
      */
-    public static BigInteger calculateb(BigInteger g,BigInteger y ,BigInteger p)
-    {
+    public static BigInteger calculateb(BigInteger g,BigInteger y ,BigInteger p) {
         BigInteger b = null;
         b = g.modPow(y, p);
         return b;
     }
 
+
+    /**
+     * 取一个大的随机素数P,和P的生成元a
+     * @param alpha 为该素数的比特位数
+     * @return
+     */
+    public static BigInteger [] getRandomP(int alpha) {
+        BigInteger rtn [] = {null,null};
+        Random r = new Random();
+        BigInteger p = null;
+        BigInteger q = null;
+        //选取一个安全素数Q, p = 2q+1 如果P为素数,选定成功
+        while(true)
+        {
+            q = BigInteger.probablePrime(alpha, r);//new BigInteger(alpha,r); //取一个随机数q, r为随机数发生器 alpha 为想要得到随机数大小[2^alpha]p = 2^alpha
+            if(q.bitLength() != alpha) //判断生成的随机数q<2^alpha 如果q<2^alpha 重新再生成一个随机数直到q>2^alpha
+                continue;
+            if(q.isProbablePrime(10)) //如果q为素数则再进一步计算生成元
+            {
+                p = q.multiply(new BigInteger("2")).add(BigInteger.ONE); // 选取一个安全素数P=2*Q+1
+                if(p.isProbablePrime(10)) //如果P为素数则选取成功 否则继续第一步
+                    break;
+            }
+        }
+        //计算p 的乘法群
+        //在Zp中选择一个g != 1
+        BigInteger g = null;
+        while(true)
+        {
+            g = BigInteger.probablePrime(p.bitLength()-1, r);//new BigInteger(p.bitLength()-1,r);//从Zp*中随机取出一个元
+            if(!g.modPow(BigInteger.ONE, p).equals(BigInteger.ONE) && !g.modPow(q, p).equals(BigInteger.ONE))
+            {////在Z*p中任选一元素a!=1,计算a^2 mod P 和a^Q mod P ,如它们都不等于1,则a是生成元,否则继续选取
+                break;
+            }
+        }
+        rtn[0] = p;
+        rtn[1] = g;
+        return rtn;
+    }
 //解密
     public static BigInteger decrypt(BigInteger C1,BigInteger C2,BigInteger y,BigInteger p)
     {
@@ -120,73 +158,58 @@ public class elgamal {
 
 
 
+
     public static void main(String[] args) {
-        //String m="123";
-       // BigInteger m = new BigInteger("11111111111111"); // 明文M 0<=m<p
+
 
         Scanner scan = new Scanner(System.in);
-        BigInteger m = scan.nextBigInteger();
-
-
-        System.out.println("消息m = " + m);
-
+        BigInteger m = scan.nextBigInteger();//明文M 0<=m<p
         int length = m.bitLength();
-        System.out.println("length:"+length);
 
-        // 随机的大素数p
         BigInteger p = getPrime(length);
-        System.out.println("p = " + p.toString());
-        // 下面计算时用到的p-1
         BigInteger p_MinusOne = p.subtract(ONE);
-        System.out.println("p-1 = " + p_MinusOne.toString());
+
+
         // 枚举遍历求生成元g
         BigInteger g = null;
         g = getG(p, p_MinusOne);
         System.out.println("g = " + g.toString());
 
+         //随机数x,满足区间[2,p-1)
+        BigInteger x = new BigInteger(length,new Random());
+        System.out.println("x = " + x.toString());
+
+        // h ≡ g^x（ mod p ）
+        BigInteger h = g.modPow(x,p);
+        System.out.println("h = " + h.toString());
+
+        // 随机的大素数y,满足区间(1,p-1)
+        BigInteger y = getPrime(length);
+        System.out.println("y = " + y.toString());
+
+        // y的逆元
+        BigInteger y_Reverse = y.modInverse(p_MinusOne);
+        System.out.println("y对p-1的逆元 = " + y_Reverse.toString());
 
 
-        //BigInteger m1 = new BigInteger(m); // 明文M 0<=m<p
-        System.out.println("明文:"+m);//输出
-       BigInteger b = null; // 公钥<b,g,p>
-        BigInteger y = null;//私钥<a,g,p> 0<a<p
-        BigInteger [] rtn = new BigInteger[2];
 
-   /*    String signm = "";
-        System.out.println("请输入消息M:");
-        InputStream clav= System.in;
-        BufferedReader rd = new BufferedReader(new InputStreamReader(clav));
-        try {signm = rd.readLine();}
-        catch(IOException e) {System.out.println(e.getMessage());}
-   */     //System.out.println(new BigInteger(signm.getBytes()).bitLength());
-        //System.exit(0);
+        BigInteger b = calculateb(g,y,p);
+        encrypt(m,p,b,g);
+
+
+        BigInteger [] rtn = {null,null};
+        rtn = getRandomP(new BigInteger(bitLength());//取得随机数P,和P的生成元g
 
         p = rtn[0];
         g = rtn[1];
+        a = getRandoma(p);
+        b = calculateb(g, a, p);
+        //rtn = ElGamal.encrypt(m, p, b, g);
+        //System.out.println("密文:"+rtn[0]+","+rtn[1]);
+        //BigInteger dm = ElGamal.decrypt(rtn[0], rtn[1], a, p);
+        //System.out.println("解密:"+dm);
+        decrypt(c1,c2,y,p);
 
-        y = getRandoma(p);
-        b = calculateb(g, y, p);
-
-        rtn = encrypt(m, p, b, g);
-        System.out.println("密文:"+rtn[0]+","+rtn[1]);
-        BigInteger dm = decrypt(rtn[0], rtn[1], y, p);
-        System.out.println("解密:"+dm);
-
-
-
-
-   /*     System.out.println("原文:"+signm);
-        byte[] mb = signm.getBytes();
-      System.out.println("字节码构造的超大整数:"+new BigInteger(mb).toString());
-     */   System.out.println("素数P:"+p);
-        System.out.println("生成元:"+g);
-        System.out.println("随机数a(私钥):"+y);
-        System.out.println("b(公钥):"+b);
-        //rtn = ElGamal.getRandomP(100);//取得随机数P,和P的生成元g
-        //p = rtn[0];
-        //g = rtn[1];
-        System.out.println("密文:"+rtn[0]+","+rtn[1]);
-      //  System.out.println("解密后的超大整数:"+new BigInteger(mb));
     }
 
 }
