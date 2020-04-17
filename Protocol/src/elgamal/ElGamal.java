@@ -120,8 +120,7 @@ public class elgamal {
         BigInteger p = null;
         BigInteger q = null;
         //选取一个安全素数Q, p = 2q+1 如果P为素数,选定成功
-        while(true)
-        {
+        while(true) {
             q = BigInteger.probablePrime(alpha, r);//new BigInteger(alpha,r); //取一个随机数q, r为随机数发生器 alpha 为想要得到随机数大小[2^alpha]p = 2^alpha
             if(q.bitLength() != alpha) //判断生成的随机数q<2^alpha 如果q<2^alpha 重新再生成一个随机数直到q>2^alpha
                 continue;
@@ -135,8 +134,7 @@ public class elgamal {
         //计算p 的乘法群
         //在Zp中选择一个g != 1
         BigInteger g = null;
-        while(true)
-        {
+        while(true) {
             g = BigInteger.probablePrime(p.bitLength()-1, r);//new BigInteger(p.bitLength()-1,r);//从Zp*中随机取出一个元
             if(!g.modPow(BigInteger.ONE, p).equals(BigInteger.ONE) && !g.modPow(q, p).equals(BigInteger.ONE))
             {////在Z*p中任选一元素a!=1,计算a^2 mod P 和a^Q mod P ,如它们都不等于1,则a是生成元,否则继续选取
@@ -148,8 +146,7 @@ public class elgamal {
         return rtn;
     }
 //解密
-    public static BigInteger decrypt(BigInteger C1,BigInteger C2,BigInteger y,BigInteger p)
-    {
+    public static BigInteger decrypt(BigInteger C1,BigInteger C2,BigInteger y,BigInteger p) {
         BigInteger m = null;
         m = C2.multiply(C1.modPow(y.negate(), p)).mod(p);
         return m;
@@ -160,8 +157,6 @@ public class elgamal {
 
 
     public static void main(String[] args) {
-
-
         Scanner scan = new Scanner(System.in);
         BigInteger m = scan.nextBigInteger();//明文M 0<=m<p
         int length = m.bitLength();
@@ -192,18 +187,14 @@ public class elgamal {
         System.out.println("y对p-1的逆元 = " + y_Reverse.toString());
 
 
-
-        BigInteger b = calculateb(g,y,p);
-        encrypt(m,p,b,g);
-
-
         BigInteger [] rtn = {null,null};
-        rtn = getRandomP(new BigInteger(bitLength());//取得随机数P,和P的生成元g
+        BigInteger b = calculateb(g,y,p);
+        rtn = encrypt(m, p, b, g);
 
         p = rtn[0];
         g = rtn[1];
-        a = getRandoma(p);
-        b = calculateb(g, a, p);
+        y = getRandoma(p);
+        b = calculateb(g, y, p);
         //rtn = ElGamal.encrypt(m, p, b, g);
         //System.out.println("密文:"+rtn[0]+","+rtn[1]);
         //BigInteger dm = ElGamal.decrypt(rtn[0], rtn[1], a, p);
