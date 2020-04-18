@@ -8,7 +8,7 @@ public class elgamal {
 
     private static final BigInteger ONE = BigInteger.ONE;
 
-    // 获取随机大素数
+    // 获取随机大素数p
     public static BigInteger getPrime(int bitLenth) {
         BigInteger p = BigInteger.probablePrime(bitLenth, new Random());
         while(!p.isProbablePrime(6)) {
@@ -16,6 +16,8 @@ public class elgamal {
         }
         return p;
     }
+
+
     // 枚举遍历求生成元g
     public static BigInteger getG(BigInteger p, BigInteger p_MinusOne) {
         BigInteger g = null;
@@ -40,6 +42,49 @@ public class elgamal {
     }
 
 
+    /**
+     * 取随机数k
+     * @param p
+     * @return
+     */
+    public static BigInteger getRandomk(BigInteger p) {
+        ///随机取一个与p-1互质的数k & 0<=k<p-1
+        Random r = new Random();
+        BigInteger k = null;
+        while(true)
+        {
+            k = new BigInteger(p.bitLength()-1,r);//产生一0<=x<p-1的随机数
+            if(k.gcd(p.subtract(BigInteger.ONE)).equals(BigInteger.ONE))
+            {//如果随机数与p-1互质 则选取成功,返回随机数k
+                break;
+            }
+        }
+        return k;
+    }
+
+
+
+    /**
+     2  * 判断a是否为模m的原根，其中m为素数
+     3  * @param a
+     4  * @param m
+     5  * @return
+     6  */
+    public static boolean isOrigin(BigInteger a, BigInteger m) {
+        if (a.gcd(m).intValue() != 1) return false;
+        BigInteger i = new BigInteger("2");
+        while (i.compareTo(m.subtract(BigInteger.ONE)) == -1) {
+            if (m.mod(i).intValue() == 0) {
+                if (a.modPow(i, m).intValue() == 1)
+                    return false;
+                while (m.mod(i).intValue() == 0)
+                    m = m.divide(i);
+                }
+            i = i.add(BigInteger.ONE);
+            }
+        return true;
+        }
+
 
     /**
      * 加密一个消息m(m为BigInteger类型) 并返回加密结果为一个BigInteger数组
@@ -49,111 +94,26 @@ public class elgamal {
      * @param g
      * @return
      */
-    public static BigInteger[] encrypt(BigInteger m, BigInteger p, BigInteger b, BigInteger g) {
+    public static BigInteger[] encrypt(BigInteger y, BigInteger g, BigInteger p, BigInteger a) {
         //随机选取一个k gcd(k,p-1)=1 0<=x<p
         BigInteger [] rtn = new BigInteger[2];//定义一个BigInteger数组,存贮返回的加密对象C1,C2
-        BigInteger x = getRandomk(p); //随机取满足条件的x为（1，p-1）
+        BigInteger k = getRandomk(p); //随机取满足条件的k为（1，p-1）
         //计算密文C1,C1
-        BigInteger C1 = g.modPow(x, p);
-        BigInteger C2 = m.multiply(b.modPow(x, p)).mod(p);
+        BigInteger C1 = g.modPow(k, p);
+        BigInteger C2 = ((y.modPow(k,p)).multiply(a.modPow(m, p)));
         //保存密文到对象中
         rtn[0] = C1;
         rtn[1] = C2;
         return rtn;
     }
-    /**
-     * 取随机数k
-     * @param p
-     * @return
-     */
-    public static BigInteger getRandomk(BigInteger p)
-    {
-        ///随机取一个与p-1互质的数x & 0<=x<p-1
-        Random r = new Random();
-        BigInteger x = null;
-        while(true) {
-            x = new BigInteger(p.bitLength()-1,r);//产生一0<=x<p-1的随机数
-            if(x.gcd(p.subtract(BigInteger.ONE)).equals(BigInteger.ONE)) {
-                //如果随机数与p-1互质 则选取成功,返回随机数k
-                break;
-            }
-        }
-        return x;
-    }
 
 
-    /**
-     * 取随机数y
-     * @param p
-     * @return
-     */
-    public static BigInteger getRandoma(BigInteger p)
-    {
-        Random r = new Random();
-
-        //构造一个随机生成的BigInteger，均匀分布在0到（2^numBits - 1）的范围内。
-        BigInteger y = new BigInteger(p.bitLength()-1,r);
-        return y;
-    }
-    /**
-     * 计算b的值
-     * @param g
-     * @param y
-     * @param p
-     * @return
-     */
-    public static BigInteger calculateb(BigInteger g,BigInteger y ,BigInteger p) {
-        BigInteger b = null;
-        b = g.modPow(y, p);
-        return b;
-    }
-
-
-    /**
-     * 取一个大的随机素数P,和P的生成元a
-     * @param alpha 为该素数的比特位数
-     * @return
-     */
-    public static BigInteger [] getRandomP(int alpha) {
-        BigInteger rtn [] = {null,null};
-        Random r = new Random();
-        BigInteger p = null;
-        BigInteger q = null;
-        //选取一个安全素数Q, p = 2q+1 如果P为素数,选定成功
-        while(true) {
-            q = BigInteger.probablePrime(alpha, r);//new BigInteger(alpha,r); //取一个随机数q, r为随机数发生器 alpha 为想要得到随机数大小[2^alpha]p = 2^alpha
-            if(q.bitLength() != alpha) //判断生成的随机数q<2^alpha 如果q<2^alpha 重新再生成一个随机数直到q>2^alpha
-                continue;
-            if(q.isProbablePrime(10)) //如果q为素数则再进一步计算生成元
-            {
-                p = q.multiply(new BigInteger("2")).add(BigInteger.ONE); // 选取一个安全素数P=2*Q+1
-                if(p.isProbablePrime(10)) //如果P为素数则选取成功 否则继续第一步
-                    break;
-            }
-        }
-        //计算p 的乘法群
-        //在Zp中选择一个g != 1
-        BigInteger g = null;
-        while(true) {
-            g = BigInteger.probablePrime(p.bitLength()-1, r);//new BigInteger(p.bitLength()-1,r);//从Zp*中随机取出一个元
-            if(!g.modPow(BigInteger.ONE, p).equals(BigInteger.ONE) && !g.modPow(q, p).equals(BigInteger.ONE))
-            {////在Z*p中任选一元素a!=1,计算a^2 mod P 和a^Q mod P ,如它们都不等于1,则a是生成元,否则继续选取
-                break;
-            }
-        }
-        rtn[0] = p;
-        rtn[1] = g;
-        return rtn;
-    }
 //解密
-    public static BigInteger decrypt(BigInteger C1,BigInteger C2,BigInteger y,BigInteger p) {
+    public static BigInteger decrypt(BigInteger C1,BigInteger C2,BigInteger a,BigInteger p) {
         BigInteger m = null;
-        m = C2.multiply(C1.modPow(y.negate(), p)).mod(p);
-        return m;
+        a.modPow(m,p) = C2.multiply((C1.modPow(x, p)).modPow(-1,p)).mod(p);
+        return a.modPow(m,p);
     }
-
-
-
 
 
     public static void main(String[] args) {
@@ -174,17 +134,11 @@ public class elgamal {
         BigInteger x = new BigInteger(length,new Random());
         System.out.println("x = " + x.toString());
 
-        // h ≡ g^x（ mod p ）
-        BigInteger h = g.modPow(x,p);
-        System.out.println("h = " + h.toString());
-
-        // 随机的大素数y,满足区间(1,p-1)
-        BigInteger y = getPrime(length);
+        // 计算y ≡ g^x（ mod p ）
+        BigInteger y = g.modPow(x,p);
         System.out.println("y = " + y.toString());
 
-        // y的逆元
-        BigInteger y_Reverse = y.modInverse(p_MinusOne);
-        System.out.println("y对p-1的逆元 = " + y_Reverse.toString());
+
 
 
         BigInteger [] rtn = {null,null};
