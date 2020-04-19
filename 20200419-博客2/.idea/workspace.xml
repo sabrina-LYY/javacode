@@ -204,7 +204,7 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="-9" />
     <option name="y" value="3" />
     <option name="width" value="1386" />
@@ -443,16 +443,15 @@
       <option name="presentableId" value="Default" />
       <updated>1587260430684</updated>
       <workItem from="1587260446076" duration="29652000" />
-      <workItem from="1587303870203" duration="1591000" />
+      <workItem from="1587303870203" duration="2210000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31243000" />
+    <option name="totallyTimeSpent" value="31862000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="3" width="1386" height="738" extended-state="1" />
-    <editor active="true" />
+    <frame x="-9" y="3" width="1386" height="738" extended-state="0" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5007542" side_tool="true" weight="0.32482994" />
@@ -473,7 +472,7 @@
       <window_info anchor="bottom" id="Java Enterprise" order="7" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49924585" visible="true" weight="0.32474226" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49924585" weight="0.32474226" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49874055" visible="true" weight="0.1546003" />
       <window_info id="Web" order="2" side_tool="true" />
@@ -646,6 +645,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
           <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -660,6 +662,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -805,7 +810,7 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
-          <last-edited>Web</last-edited>
+          <last-edited>Web (20200419-博客2)|Web</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -865,7 +870,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>fastjson-1.2.68</last-edited>
+          <last-edited>lib</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
