@@ -10,3 +10,4 @@ CREATE TABLE users (
   brief VARCHAR(200) NOT NULL,
   registered_at DATETIME NOT NULL
 );
+

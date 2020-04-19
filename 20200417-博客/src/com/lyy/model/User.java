@@ -2,7 +2,6 @@ package com.lyy.model;
 
 import com.lyy.util.Database;
 
-
 import java.security.MessageDigest;
 import java.sql.*;
 import java.text.DateFormat;
@@ -10,7 +9,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
-
 public class User {
     private static  final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -84,7 +82,7 @@ public class User {
         User user = null;
 
         try(Connection con = Database.getConnection()) {
-            try(PreparedStatement stmt = con.prepareStatement(sql){
+            try(PreparedStatement stmt = con.prepareStatement(sql)){
                 stmt.setString(1,username);
                 try(ResultSet rs = stmt.executeQuery()){
                     if(rs.next()){
@@ -118,5 +116,6 @@ public class User {
         }
     }
 }
+
 
 
