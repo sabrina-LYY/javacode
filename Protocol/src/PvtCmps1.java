@@ -6,13 +6,12 @@ import java.util.Scanner;
 
 
 public class PvtCmps1 {
-    public  static BigInteger[] PvtCmps(int[]x,int[]y,int b1,int[] r) {
+     public static BigInteger[] PvtCmps(int[]x,int[]y,int b1,int[] r) {
         Scanner scan = new Scanner(System.in);
         Random rand = new Random();
+        Elgamal elgamal = new Elgamal();
+
         int t = 10;
-        Paillier paillier = new Paillier();
-
-
 
 
         int Ysum = 0;
@@ -36,11 +35,15 @@ public class PvtCmps1 {
 
             //对c加密
             BigInteger m = new BigInteger(String.valueOf(c[i]));
-            BigInteger ec = paillier.Encryption(m);
-            list.add(ec);
+            BigInteger[] ec = elgamal.encrypt(m);
+            for(int k=0;k<ec.length;k++){
+                list.add(ec[k]);
+            }
         }
         BigInteger[] C = list.toArray(new BigInteger[list.size()]);
         return C;
     }
+
+
 
 }

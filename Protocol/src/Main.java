@@ -13,6 +13,7 @@ public class Main {
         Random rand = new Random();
 
         int b1=rand.nextInt(1);//b1是随机数
+        int s=1-(2*b1);
 
         //将输入的x y 转化为二进制的数组
         BigInteger x0 = scan.nextBigInteger();
@@ -37,7 +38,9 @@ public class Main {
             r[i]=rand.nextInt(p);//r属于[0，p)之间的随机整数
         }
 
-        BigInteger[] s = PvtCmps1.PvtCmps(x,y,b1,r);
-        //BigInteger[] OTs = PvtCmpOTs1.PvtCmpOTs(x,y,s,t,r);
+        BigInteger[] C = PvtCmps1.PvtCmps(x,y,b1,r);
+        int  b2 = PvtCmpc1.PvtCmpc(C,t);
+
+        BigInteger[] OTs = PvtCmpOTs1.PvtCmpOTs(x,y,s,t,r);
     }
 }

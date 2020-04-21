@@ -183,7 +183,7 @@ public class ID3 {
         //部分分组
         ArrayList<ArrayList<ArrayList<String>>> count=new ArrayList<ArrayList<ArrayList<String>>>();
         //分组总和
-        //得到节点下的边标签并分组
+        //得到节点下边的标签并分组
         for(int i=0;i<s.size();i++) {
             node.label.add(s.get(i));//添加边标签
             //System.out.print("添加边标签:"+s.get(i)+"  ");
