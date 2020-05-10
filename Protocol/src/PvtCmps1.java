@@ -14,6 +14,7 @@ public class PvtCmps1 {
         int t = 10;
 
 
+
         int Ysum = 0;
         for(int i=1;i<=t;i++){
             Ysum+=y[i]*(Math.pow(2,t-i));
@@ -31,6 +32,7 @@ public class PvtCmps1 {
             if(j<i){
                 mid+=x[j]^y[j];
             }
+            j++;
             c[i]=r[i]*(x[i]-y[i]+s+(3*mid));
 
             //对c加密
