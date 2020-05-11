@@ -1,8 +1,9 @@
 package webapps.ROOT;
 
-import com.lyy.HttpServlet;
-import com.lyy.HttpServletRequest;
-import com.lyy.HttpServletResponse;
+import stardard.HttpServlet;
+import stardard.HttpServletRequest;
+import stardard.HttpServletResponse;
+
 
 import java.io.IOException;
 import java.io.PrintWriter;

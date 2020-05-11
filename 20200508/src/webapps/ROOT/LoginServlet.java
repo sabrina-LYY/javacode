@@ -1,8 +1,10 @@
 package webapps.ROOT;
 
-import com.lyy.HttpServlet;
-import com.lyy.HttpServletRequest;
-import com.lyy.HttpServletResponse;
+import stardard.HttpServlet;
+import stardard.HttpServletRequest;
+import stardard.HttpServletResponse;
+import tomcat.HttpServletRequestImpl;
+import tomcat.HttpServletResponseImpl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,11 +15,11 @@ public class LoginServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        //TODO:验证用户名密码是否正确
-        //TODO：设置Session信息
+        // TODO: 验证用户名密码是否正确
+        // TODO: 设置 Session 信息
 
-        resp.setContentType("text/plain;charset=utf-8");
+        resp.setContentType("text/plain; charset=utf-8");
         PrintWriter writer = resp.getWriter();
-        writer.println("登陆成功");
+        writer.println("登录成功");
     }
 }
