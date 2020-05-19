@@ -1,0 +1,22 @@
+package commom;
+
+public enum OrderStatus {
+    PLAYING(1,"待支付"),OK(2,"支付成功");
+    private int flg;
+    private String desc;//响应的描述
+    OrderStatus(int flg,String desc){
+        this.flg = flg;
+        this.desc = desc;
+    }
+
+    public static OrderStatus valueOf(int flg){
+        for(OrderStatus orderStatus:values()){
+            if(orderStatus.flg == flg){
+                return orderStatus;
+            }
+        }
+        throw new RuntimeException("orderStatus flg"
+        +flg+"not found!");
+    }
+
+}

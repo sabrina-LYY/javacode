@@ -28,7 +28,8 @@ public class PvtCmps1 {
         int mid = 0;
         int[] c = new int[t];
         List<BigInteger> list = new ArrayList<>();
-        for(int i=1;i<=t;i++){
+        BigInteger[][] ec = new BigInteger[t+1][2];
+         for(int i=1;i<=t;i++){
             if(j<i){
                 mid+=x[j]^y[j];
             }
@@ -37,12 +38,16 @@ public class PvtCmps1 {
 
             //对c加密
             BigInteger m = new BigInteger(String.valueOf(c[i]));
-            BigInteger[] ec = elgamal.encrypt(m);
-            for(int k=0;k<ec.length;k++){
-                list.add(ec[k]);
-            }
+            ec[i]= elgamal.encrypt(m);
+
         }
+         for(int i=1;i<=t;i++){
+             for(int k=0;k<2;k++){
+                 list.add(ec[i][k]);
+             }
+         }
         BigInteger[] C = list.toArray(new BigInteger[list.size()]);
+
         return C;
     }
 
