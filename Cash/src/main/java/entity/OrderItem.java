@@ -14,7 +14,7 @@ public class OrderItem {
     private Integer goodsPrice;
     private Integer goodsDiscount;
 
-    public Double getGoodsPrice(){
+    public double getGoodsPrice(){
         return goodsPrice*1.0/100;
     }
 
