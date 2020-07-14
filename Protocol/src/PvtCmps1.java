@@ -2,44 +2,67 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
+
+import static java.lang.Math.pow;
 
 
 public class PvtCmps1 {
-     public static BigInteger[] PvtCmps(int[]x,int[]y,int b1,int[] r) {
-        Scanner scan = new Scanner(System.in);
-        Random rand = new Random();
-        Elgamal elgamal = new Elgamal();
 
-        int t = 10;
-
+     public static BigInteger[] PvtCmps(int xo,int yo,int b1) {
+         Random rand = new Random();
+         Elgamal elgamal = new Elgamal();
+         int t = 10;
 
 
-        int Ysum = 0;
+         String xB =Integer.toBinaryString(xo);
+         BigInteger[] x = new BigInteger[t];
+         String yB = Integer.toBinaryString(yo);
+
+         BigInteger[] y = new BigInteger[t];
+
+
+         for(int i=0;i<t;i++){
+             x[i]=BigInteger.valueOf(xB.charAt(i));
+             y[i]=BigInteger.valueOf(yB.charAt(i));
+
+         }
+
+
+        BigInteger Ysum = null;
+        BigInteger b = null;
         for(int i=1;i<=t;i++){
-            Ysum+=y[i]*(Math.pow(2,t-i));
+            b = BigInteger.valueOf((long) pow(2,t-i));
+            Ysum=Ysum.add(y[i].multiply(b));
+
+
         }
 
         //计算c
         int s=0;
         s=1-(2*b1);
-
         int j=0;
-        int mid = 0;
-        int[] c = new int[t];
+        BigInteger[] c = new BigInteger[t];
         List<BigInteger> list = new ArrayList<>();
         BigInteger[][] ec = new BigInteger[t+1][2];
+        BigInteger mid = null;
+
+        int[] r = new int[t+1];
+
+        String ps = (elgamal.p).toString();
+        int pB = Integer.valueOf(ps);
          for(int i=1;i<=t;i++){
+             //每次循环产生一个随机数
+             r[i]=(int)(Math.random()*pB)+1;
+
             if(j<i){
-                mid+=x[j]^y[j];
+
+                mid=mid.add(x[j].xor(y[j]));
             }
             j++;
-            c[i]=r[i]*(x[i]-y[i]+s+(3*mid));
-
+            BigInteger b3 = new BigInteger("3");
+            c[i]=(BigInteger.valueOf(r[i])).multiply(x[i].subtract(y[i]).add(BigInteger.valueOf(s).add(mid.multiply(b3))));
             //对c加密
-            BigInteger m = new BigInteger(String.valueOf(c[i]));
-            ec[i]= elgamal.encrypt(m);
-
+            ec[i]= elgamal.encrypt(c[i]);
         }
          for(int i=1;i<=t;i++){
              for(int k=0;k<2;k++){
